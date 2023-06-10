@@ -4,114 +4,127 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace lab8T1
+namespace lab8T2
 {
     class Program
-    {
-        public class circle
+    { 
+        public class Person
         {
-            protected double radius;
-            protected string color;
+            protected string name;
+            protected string address;
 
-            public circle()
+            public Person(string name , string address)
             {
+                this.name = name;
+                this.address = address;
+            }
+            public string getname()
+            {
+                return name;
+            }
+            public string getaddress()
+            {
+                return address;
+            }
+            public void setaddress(string address)
+            {
+                this.address = address;
+            }
+            public virtual string tostring()
+            {
+                return "Person[" +" Name: " + name + "\t\t" + "Address: " + address + "]";
+            }
+        }
+        public class Student : Person
+        {
+            private string program;
+            private int year;
+            private double fee;
 
-            }
-            public circle(double radius)
+            public Student(string name,string address,string program,int year,double fee) : base (name,address)
             {
-                this.radius = radius;
+                this.program = program;
+                this.year = year;
+                this.fee = fee;
             }
-            public circle(double radius, string color)
+            public string getprogram()
             {
-                this.radius = radius;
-                this.color = color;
+                return program;
             }
-            public void setradius(double radius)
+            public void setprogram(string program)
             {
-                this.radius = radius;
+                this.program = program;
             }
-            public void setcolor(string color)
+            public void setyear(int year)
             {
-                this.color = color;
+                this.year = year;
             }
-            public double getradius()
+            public void setfee(double fee)
             {
-                return radius;
+                this.fee = fee;
             }
-            public string getcolor()
+            public int getyear()
             {
-                return color;
+                return year;
             }
-            public double getarea()
+            public double getfee()
             {
-                return  Math.PI *Math.Pow(radius,2);
+                return fee;
             }
-            public string tostring()
+            public override string tostring()
             {
-                return "Radius: " + radius + "\t\t" + "Color: " + color;
+                return "STUDENT [ Person "+"Name: " + name + "\t\t" + "Address: " + address + " ]\t\t" + "Program: " + program + "\t\t" + "year: " + year + "\t\t" + "fee: " + fee +"]";
+            }
+
+        }
+        public class staff : Person
+        {
+            private string school;
+            private double pay;
+
+            public staff(string name, string address, string school, double pay) : base(name, address)
+
+            {
+                this.school = school;
+                this.pay = pay;
+            }
+            public void setschool(string school)
+            {
+                this.school = school;
+            }
+            public string getschool()
+            {
+                return school;
+            }
+            public void setpay(double pay)
+            {
+                this.pay = pay;
+            }
+            public double getpay()
+            {
+                return pay;
+            }
+            public override string tostring()
+            {
+                return "Staff[ Person ["+"Name: " + name + "\t\t" + "Address: " + address + "]\t\t" + "School: " + school + "\t\t" + "Pay: " + pay+ "]";
             }
         }
 
-        public class cylinder : circle
-        {
-            private double height;
-            public cylinder()
-            {
-
-            }
-            public cylinder(double radius) : base(radius)
-            {
-                
-            }
-            public cylinder(double radius, double height): base(radius)
-            {
-                this.height = height;
-            }
-            public cylinder(double radius, string color,double height) : base(radius,color)
-            {
-                this.height = height;
-            }
-            public double getheight()
-            {
-                return height;
-            }
-            public void setheight(double height)
-            {
-                this.height = height;
-            }
-            public double getvolume()
-            {
-                return Math.PI * Math.Pow(radius, 2)*height;
-            }
-        }
+        
         static void Main(string[] args)
         {
-            cylinder c = new cylinder();
-            Console.Write("Enter the Radius: ");
-            double radius = double.Parse(Console.ReadLine());
-            c.setradius(radius);
-            Console.Write("Enter the height: ");
-            double height = double.Parse(Console.ReadLine());
-            c.setheight(height);
-           double result=  c.getvolume();
-            Console.WriteLine("Volume: " + result);
+            List<Person> list = new List<Person>();
+            Student s1 = new Student("Ali", "Lahore", "BSCS", 2, 5000); list.Add(s1);
+            Student s2 = new Student("Ahmed", "Gujrat", "BSCS", 2, 5000); list.Add(s2);
 
-            Console.Write("Enter the Radius: ");
-            radius = double.Parse(Console.ReadLine());
-            Console.Write("Enter the height: ");
-            height = double.Parse(Console.ReadLine());
-            cylinder c1 = new cylinder(radius,height);
-            result = c1.getvolume();
-            Console.WriteLine("Volume: " + result);
+            staff p1 = new staff("Saad", "Lahore","Peak",4300); list.Add(p1);
+            staff p2 = new staff("Hamza", "Lahore","Beachon",5000); list.Add(p2);
 
-            Console.Write("Enter the Radius: ");
-            radius = double.Parse(Console.ReadLine());
-            Console.Write("Enter the height: ");
-            height = double.Parse(Console.ReadLine());
-            cylinder c2 = new cylinder(radius, height);
-            result = c2.getvolume();
-            Console.WriteLine("Volume: " + result);
+            foreach(Person p in list)
+            {
+                Console.WriteLine(p.tostring());
 
+            }
             Console.ReadKey();
 
         }
